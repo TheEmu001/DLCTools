@@ -32,6 +32,19 @@ data_df['|diff X|'] = data_df['|diff X|'].abs()
 data_df['|diff Y|'] = data_df['snoutY'].diff(-1)
 data_df['|diff Y|'] = data_df['|diff Y|'].abs()
 
-# print(x2_val['snoutX'])
+# calculating the cummulative sum down the column
+data_df['sumX'] = data_df['|diff X|'].cumsum()
+data_df['sumY'] = data_df['|diff Y|'].cumsum()
+
 print(data_df)
 
+# what's being plotted
+plt.plot(data_df['Time Elapsed'], data_df['sumX'],color='blue', marker='o', markersize=0.1, linewidth=0.1, label='xSum')
+plt.plot(data_df['Time Elapsed'], data_df['sumY'],color='red', marker='o', markersize=0.1, linewidth=0.1, label='ySum')
+
+# plot formatting
+plt.xlabel('time (seconds)')
+plt.ylabel('distance travelled (pixels)')
+plt.legend(loc=2)
+plt.title('total distance traveled vs. time: ' + path)
+plt.show()
