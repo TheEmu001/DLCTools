@@ -24,61 +24,14 @@ data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'snoutX', 'snoutY', 's
 # calculate the time elapsed per frame and append column
 data_df['Time Elapsed'] = data_df['frameNo'] / 30
 
-# dataframe only for xy values
-xy = data_df[['snoutX', 'snoutY']]
-print(xy)
+# calculate the difference from row under to row before
+# then calculate absolute value
+data_df['|diff X|'] = data_df['snoutX'].diff(-1)
+data_df['|diff X|'] = data_df['|diff X|'].abs()
 
-# elements at the end of array come to beginning, will be x1 and y1
-b = np.roll(xy, -1, axis=0)[1:-1]
-print(b)
+data_df['|diff Y|'] = data_df['snoutY'].diff(-1)
+data_df['|diff Y|'] = data_df['|diff Y|'].abs()
 
-# skip first value to make it easy to subtract, this will basically be x2 and x2
-a = xy[1:-1]
-print(a)
-
-dxy = np.linalg.norm(a - b, axis=1)
-print(dxy)
-
-dist = euclidean_distances(a, b, squared=True)
-# distances = pdist(dxy.values, metric='euclidean')
-# dist_matrix = squareform(distances)
-# print(dist_matrix)
-
-# dxy = np.linalg.norm(a - b, axis=1)
-# print(dxy)
-
-# #
-# a = xy[1:-1]
-# #
-# # change in xy
-# dxy = np.linalg.norm(a - b, axis=1)
-# dxy_Dist = np.linalg.norm(a - b, axis=1)
-#
-# # total distance calculation
-# # print()
-# # distances = pdist(xy, metric='euclidean')
-# # dist_matrix = squareform(distances)
-# # print(dist_matrix)
-#
-# # change in time
-# dt = (np.roll(data_df['Time Elapsed'], -1) - data_df['Time Elapsed'])[1:-1]
-#
-# # calculating the speed, change in displacement over time
-# speeds = np.divide(dxy, dt)
-#
-# speed_df = pd.DataFrame(data={'Time Elapsed': data_df['Time Elapsed'][1:-1], 'Speed': speeds, 'Snout Likelihood': data_df['snoutLike'][1:-1]})
-#
-# speed_normalized = (speed_df - speed_df.mean())/speed_df.std()
-#
-#
-# speed_df['pandas_SMA_3'] = speed_df.iloc[:,1].rolling(window=2).mean()
-#
-# # plt.plot(speed_df['Time Elapsed'], speed_df['Speed'],color='blue', marker='o', markersize=0.1, linewidth=0.1, label='Raw Data')
-# # plt.plot(speed_df['Time Elapsed'], speed_df['pandas_SMA_3'],color='red', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
-# #
-# # plt.xlabel('time (seconds)')
-# # plt.ylabel('distance (pixels)')
-# # plt.legend(loc=2)
-# # plt.title('Total Distance vs. Time for: ' + path)
-# # plt.show()
+# print(x2_val['snoutX'])
+print(data_df)
 
