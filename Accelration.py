@@ -45,23 +45,16 @@ data_df['eucDist'] = data_df['deltaSummed']**(1/2)
 data_df['eucDistSum'] = data_df['eucDist'].cumsum()
 
 # calculate the average value between x and y values from subsequent rows
-data_df['velocity'] = data_df['eucDist'] / data_df['Time Elapsed']
+data_df['velocity'] = data_df['deltaSummed'][30:-1] / data_df['Time Elapsed'][30:-1]
 
+movements_over_timesteps = (np.roll(data_df, -1, axis=0)- data_df)[:-1]
+speeds = np.sqrt(data_df['snoutX'] ** 2 + data_df['snoutY'] ** 2) / (data_df['frameNo']/30)
 
-
-
-print(data_df['velocity'])
-
-# what's being plotted
-# plt.plot(data_df['Time Elapsed'], data_df['sumX'],color='blue', marker='o', markersize=0.1, linewidth=0.1, label='xSum')
-# plt.plot(data_df['Time Elapsed'], data_df['sumY'],color='red', marker='o', markersize=0.1, linewidth=0.1, label='ySum')
-# plt.plot(data_df['Time Elapsed'], data_df['eucDistSum'],color='green', marker='o', markersize=0.1, linewidth=0.1, label='distance')
-plt.plot(data_df['Time Elapsed'][5000:], data_df['velocity'][5000:],color='orange', marker='o', markersize=0.1, linewidth=0.1, label='velocity')
-
-# plot formatting
-plt.xlabel('time (seconds)')
-plt.ylabel('velocity (pixels/sec)')
-plt.legend(loc=2)
-plt.title('total distance traveled vs. time: ' + path)
-plt.axvspan(300, 600, alpha=0.25, color='blue')
-plt.show()
+print(speeds)
+# # plot formatting
+# plt.xlabel('time (seconds)')
+# plt.ylabel('velocity (pixels/sec)')
+# plt.legend(loc=2)
+# plt.title('velocity vs. time: ' + path)
+# plt.axvspan(300, 600, alpha=0.25, color='blue')
+# plt.show()

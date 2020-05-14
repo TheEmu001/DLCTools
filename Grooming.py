@@ -51,13 +51,14 @@ data_df['eucDistSum'] = data_df['eucDist'].cumsum()
 
 
 # determining average point for forepaw location
-data_df['avgForePawX'] = data_df['leftforepawx'] + data_df['rightforepawx'] / 2
-data_df['avgForePawY'] = data_df['leftforepawy'] + data_df['rightforepawy'] / 2
+data_df['avgForePawX'] = (data_df['leftforepawx'] + data_df['rightforepawx'] )/ 2
+data_df['avgForePawY'] = (data_df['leftforepawy'] + data_df['rightforepawy'] )/ 2
 
 data_df['groomX^2'] = (data_df['avgForePawX'] - data_df['snoutX'])**2
 data_df['groomY^2'] = (data_df['avgForePawY'] - data_df['snoutY'])**2
 
 data_df['groomDist'] = (data_df['groomX^2'] + data_df['groomY^2'])**(1/2)
+data_df['groomDistAvg'] = data_df['groomDist'].rolling(window=150).mean()
 print(data_df)
 
 
@@ -68,12 +69,12 @@ print(data_df)
 # plt.plot(data_df['Time Elapsed'], data_df['sumX'],color='blue', marker='o', markersize=0.1, linewidth=0.1, label='xSum')
 # plt.plot(data_df['Time Elapsed'], data_df['sumY'],color='red', marker='o', markersize=0.1, linewidth=0.1, label='ySum')
 # plt.plot(data_df['Time Elapsed'], data_df['eucDistSum'],color='green', marker='o', markersize=0.1, linewidth=0.1, label='distance')
-plt.plot(data_df['Time Elapsed'], data_df['groomDist'],color='green', marker='o', markersize=0.1, linewidth=0.1, label='grooming')
+plt.plot(data_df['Time Elapsed'], data_df['groomDistAvg'],color='green', marker='o', markersize=.3, linewidth=.3, label='grooming')
 
 # plot formatting
 plt.xlabel('time (seconds)')
 plt.ylabel('distance travelled (pixels)')
 plt.legend(loc=2)
-plt.title('total distance traveled vs. time: ' + path)
+plt.title('snout to forepaw distance vs. time: ' + path)
 plt.axvspan(300, 600, alpha=0.25, color='blue')
 plt.show()
