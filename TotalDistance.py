@@ -36,15 +36,25 @@ data_df['|diff Y|'] = data_df['|diff Y|'].abs()
 data_df['sumX'] = data_df['|diff X|'].cumsum()
 data_df['sumY'] = data_df['|diff Y|'].cumsum()
 
+# squaring delta x and y values
+data_df['deltax^2'] = data_df['|diff X|']**2
+data_df['deltay^2'] = data_df['|diff Y|']**2
+
+# adding deltaX^2 + deltaY^2
+data_df['deltaSummed'] = data_df['deltax^2'] + data_df['deltay^2']
+
+# taking square root of deltaX^2 + deltaY^2
+data_df['eucDist'] = data_df['deltaSummed']**(1/2)
+
 print(data_df)
 
-# what's being plotted
-plt.plot(data_df['Time Elapsed'], data_df['sumX'],color='blue', marker='o', markersize=0.1, linewidth=0.1, label='xSum')
-plt.plot(data_df['Time Elapsed'], data_df['sumY'],color='red', marker='o', markersize=0.1, linewidth=0.1, label='ySum')
-
-# plot formatting
-plt.xlabel('time (seconds)')
-plt.ylabel('distance travelled (pixels)')
-plt.legend(loc=2)
-plt.title('total distance traveled vs. time: ' + path)
-plt.show()
+# # what's being plotted
+# plt.plot(data_df['Time Elapsed'], data_df['sumX'],color='blue', marker='o', markersize=0.1, linewidth=0.1, label='xSum')
+# plt.plot(data_df['Time Elapsed'], data_df['sumY'],color='red', marker='o', markersize=0.1, linewidth=0.1, label='ySum')
+#
+# # plot formatting
+# plt.xlabel('time (seconds)')
+# plt.ylabel('distance travelled (pixels)')
+# plt.legend(loc=2)
+# plt.title('total distance traveled vs. time: ' + path)
+# plt.show()
