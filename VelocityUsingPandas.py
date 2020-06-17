@@ -70,7 +70,8 @@ plt.plot(speed_df['Time Elapsed'], speed_df['pandas_SMA_3'],color='red', marker=
 #
 plt.xlabel('time (seconds)')
 plt.ylabel('velocity (Pixels/second)')
-plt.legend(loc=2)
-plt.title('Snout Velocity vs. Time for: ' + path)
+# plt.legend(loc=2)
+animal = []
+animal[:] = ' '.join(path.split()[2:3])
+plt.title('Snout Velocity vs. Time for: ' + ' '.join(path.split()[:2]) + " "+ ''.join(animal[:3]))
 plt.show()
-

@@ -9,9 +9,9 @@ from scipy.signal import find_peaks
 # notation on print, default False
 np.set_printoptions(suppress=True)
 
-path = "Vglut-cre C137 F2+_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
+# path = "Vglut-cre C137 F2+_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 # path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
-# path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
+path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # TODO: recognition of multiple files in folder to each generate their own plot
 data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'snoutX', 'snoutY', 'snoutLike',
                                                 'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx', 'righteary',
@@ -30,11 +30,11 @@ y_coords = np.array(data_df['snoutY'])
 # data is then parsed by seting a y-value to filter data that may not be considered a "jump"
 # bigger points indicate the points that the program considers to be a "jump" based on parameters set
 
-peaks, _ = find_peaks(-data_df['snoutY'], distance=150)
+peaks, _ = find_peaks(-data_df['snoutY'], distance=100)
 
 data_df_peaks = pd.DataFrame(data=data_df.loc[data_df.frameNo.isin(peaks)]['snoutY'])
 
-parse_peaks = pd.DataFrame(data=data_df_peaks[data_df_peaks.snoutY <= 250])
+parse_peaks = pd.DataFrame(data=data_df_peaks[data_df_peaks.snoutY <= 175])
 print(parse_peaks)
 print(parse_peaks.size)
 
