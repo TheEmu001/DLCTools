@@ -9,8 +9,8 @@ from scipy.signal import find_peaks
 np.set_printoptions(suppress=True)
 
 # path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
-# path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
-path = "Vglut-cre C162 F1DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
+path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
+# path = "Vglut-cre C162 F1DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 
 data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'snoutX', 'snoutY', 'snoutLike',
                                                 'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx', 'righteary',
@@ -82,6 +82,6 @@ plt.xlabel('Time (seconds)')
 plt.ylabel('Accelaration (Pixels/second $^2$)')
 animal = []
 animal[:] = ' '.join(path.split()[2:3])
-plt.title('Snout Jumps using Acceleration vs. Time for: ' + ' '.join(path.split()[:2]) + " "+ ''.join(animal[:2]))
-plt.text(550, 4400, 'formula predicted jumps: '+ str(parse_peaks.size), fontsize=10)
+plt.title('Snout Jumps using Acceleration vs. Time for: ' + ' '.join(path.split()[:2]) + " "+ ''.join(animal[:3]))
+plt.text(550, 2400, 'formula predicted jumps: '+ str(parse_peaks.size), fontsize=10)
 plt.show()

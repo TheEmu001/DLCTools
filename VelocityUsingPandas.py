@@ -63,9 +63,13 @@ speed_df['CMA'] = speed_df['Speed'][1:-1].expanding(min_periods=2).mean()
 # print(speed_df.head())
 
 speed_df['pandas_SMA_3'] = speed_df.iloc[:,1].rolling(window=100).mean()
+speed_df['pandas_SMA_3_cm'] = speed_df['pandas_SMA_3'] * (1/24.421)
 
 # plt.plot(speed_df['Time Elapsed'], speed_df['Speed'],color='blue', marker='o', markersize=0.1, linewidth=0.1, label='Raw Data')
-plt.plot(speed_df['Time Elapsed'], speed_df['pandas_SMA_3'],color='red', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
+# plt.plot(speed_df['Time Elapsed'], speed_df['pandas_SMA_3'],color='red', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
+plt.plot(speed_df['Time Elapsed'], speed_df['pandas_SMA_3_cm'],color='red', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
+
+
 # plt.plot(dist['Time'], dist['speed'],color='green', marker='o', markersize=0.1, linewidth=0.5, label='CMA')
 #
 plt.xlabel('time (seconds)')

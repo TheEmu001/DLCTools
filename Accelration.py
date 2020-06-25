@@ -53,8 +53,16 @@ y_val_numpy = speed_df['pandas_SMA_3'].to_numpy()
 y_der = np.gradient(y_val_numpy, x_val_numpy, edge_order=1)
 y_der_0 = np.nan_to_num(y_der)
 y_der_norm = normalize(y_der_0[:,np.newaxis], axis=0).ravel()
+y_der_cm = y_der * (1/24.421)
+
+speed_df['first der cm'] = y_der_cm
+speed_df['first der cm'] = speed_df.iloc[:,1].rolling(window=100).mean()
+
 # plt.plot(speed_df['Time Elapsed'], speed_df['pandas_SMA_3'],color='red', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
-plt.plot(speed_df['Time Elapsed'], y_der,color='green', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
+# plt.plot(speed_df['Time Elapsed'], y_der_cm,color='green', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
+
+plt.plot(speed_df['Time Elapsed'], speed_df['first der cm'],color='green', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')
+
 
 #normalized first derivative
 # plt.plot(speed_df['Time Elapsed'], y_der_norm,color='red', marker='o', markersize=0.1, linewidth=0.5, label='pandas_SMA_3')

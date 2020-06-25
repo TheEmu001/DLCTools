@@ -11,9 +11,9 @@ from sklearn.metrics.pairwise import euclidean_distances
 # notation on print, default False
 np.set_printoptions(suppress=True)
 
-path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
+# path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
-
+path = "Vglut-cre C162 F1DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 # TODO: recognition of multiple files in folder to each generate their own plot
 data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'snoutX', 'snoutY', 'snoutLike',
                                                 'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx', 'righteary',
@@ -60,6 +60,9 @@ plt.plot(data_df['Time Elapsed'], data_df['eucDistSum'],color='green', marker='o
 plt.xlabel('time (seconds)')
 plt.ylabel('distance travelled (pixels)')
 plt.legend(loc=2)
-plt.title('total distance traveled vs. time: ' + path)
+# plt.title('total distance traveled vs. time: ' + path)
+animal = []
+animal[:] = ' '.join(path.split()[2:5])
+plt.title('Total Distance vs. Time for: ' + ' '.join(path.split()[:2]) + " "+ ''.join(animal[:2]))
 plt.axvspan(300, 600, alpha=0.25, color='blue')
 plt.show()
