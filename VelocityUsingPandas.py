@@ -2,7 +2,16 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy.polynomial.polynomial as poly
+
+# TODO: convert pixel coordinates to cm at the very beginning
+#   every video must have its unique pixel conversion value
+#   then append cm value for x and y pixel, use that to calculate distance and thereby velocity
+
+# todo: generate an average of all animals
+#   perhaps create a pandas df calculating all velocity frame by frame for each, convert df to csv
+#   use graphpad prism to help with nice averages, averages will need SEM as error bar
+# TODO: recognition of multiple files in folder to each generate their own plot
+#   this kne ks not that urgent because well be generating averages
 
 # prevent numpy exponential
 # notation on print, default False
@@ -10,7 +19,7 @@ np.set_printoptions(suppress=True)
 
 # path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
-# TODO: recognition of multiple files in folder to each generate their own plot
+
 data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'snoutX', 'snoutY', 'snoutLike',
                                                 'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx', 'righteary',
                                                 'rightearlikelihood', 'leftforepawx', 'leftforepawy',
