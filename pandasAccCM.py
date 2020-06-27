@@ -197,5 +197,5 @@ def dirParse(directory):
 
 
 dirParse("/Users/imehndiokho/Desktop/csv_files")
-velocity_df.to_csv("/Users/imehndiokho/Desktop/velocity_all.csv", index=False)
-acceleration_df.to_csv("/Users/imehndiokho/Desktop/acceleration_all.csv", index=False)
+velocity_df.to_csv("/Users/imehndiokho/Desktop/velocity_neg.csv", index=False)
+acceleration_df.to_csv("/Users/imehndiokho/Desktop/acceleration_neg.csv", index=False)
