@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # notation on print, default False
 np.set_printoptions(suppress=True)
 
-#global variables
-# velocity dataframe will store all velocity values for videos analyzed
+# global variables
+# velocity DataFrame will store all velocity values for videos analyzed
 velocity_df = pd.DataFrame(columns=['Time Elapsed'])
 
 # conversion path *must* point to CSV and dataFrame is reading from CSV
@@ -60,7 +60,7 @@ def velocityCalc(path):
     data_df['Y_cm'] = data_df['snoutY'].divide(height_conv_factor)
     xy = data_df[['X_cm', 'Y_cm']]
 
-    # rolling x and y cordinates to facilitate calculating the difference between coordinates
+    # rolling x and y coordinates to facilitate calculating the difference between coordinates
     b = np.roll(xy, -1, axis=0)[1:-1]
     a = xy[1:-1]
 
