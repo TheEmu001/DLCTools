@@ -13,7 +13,7 @@ np.set_printoptions(suppress=True)
 
 # path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
-path = "Vglut-cre C162 F1DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
+# path = "Vglut-cre C162 F1DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 # TODO: recognition of multiple files in folder to each generate their own plot
 data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'snoutX', 'snoutY', 'snoutLike',
                                                 'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx', 'righteary',

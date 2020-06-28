@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import normalize
 
-
 # prevent numpy exponential
 # notation on print, default False
 np.set_printoptions(suppress=True)
@@ -19,7 +18,12 @@ acceleration_df = pd.DataFrame(columns=['Time Elapsed'])
 # conversion path points to the location of the pixel conersion csv and will generate a Pandas Dataframe as a result
 # every video will have a certain conversion value to convert x and y values from pixel to cm
 # this accounts for video framing, an idea would be to add a tracking point in DLC and parse files accordingly
-conv_path = "/Users/imehndiokho/Desktop/pixel conversion.csv"
+conv_path = "pixel_conversion.csv"
+# conv_path = open(r"C:\Users\ad-anestnorrislab\Desktop\pixel_conv.csv", "r")
+# with open (r"C:\Users\ad-anestnorrislab\Desktop\pixel_conv.csv", "rb+") as f:
+#     conversion_df = pd.read_csv(f, skiprows=4, names=['vidName', 'bucket_height', 'bucket_width', 'width_conv',
+#                                                               'height_conv'])
+# # print(conv_path)
 conversion_df = pd.read_csv(conv_path, skiprows=4, names=['vidName', 'bucket_height', 'bucket_width', 'width_conv',
                                                           'height_conv'])
 
@@ -41,7 +45,8 @@ def velocityCalc(path):
                                                    'leftforewlikelihood', 'rightforepawx', 'rightforepawy',
                                                    'rightforepawlikelihood', 'lefthindpawx', 'lefthindpawy',
                                                    'lefthindpawlikelihood', 'righthindpawx', 'righthindpawy',
-                                                   'righthindpawlikelihood', 'tailbasex', 'tailbasey','taillikelihood'])
+                                                   'righthindpawlikelihood', 'tailbasex', 'tailbasey',
+                                                   'taillikelihood'])
 
     # getting the animal name from DLC csv passed in
     animalName = []
@@ -99,6 +104,7 @@ def velocityCalc(path):
     plt.title('Snout Velocity vs. Time for: ' + ' '.join(path.split()[:2]) + " " + ''.join(animal[:3]))
     plt.show()
 
+
 def accelerationCalc(path):
     # defining global variables to appease the demands of Python
     global velocity_df
@@ -115,7 +121,8 @@ def accelerationCalc(path):
                                                    'leftforewlikelihood', 'rightforepawx', 'rightforepawy',
                                                    'rightforepawlikelihood', 'lefthindpawx', 'lefthindpawy',
                                                    'lefthindpawlikelihood', 'righthindpawx', 'righthindpawy',
-                                                   'righthindpawlikelihood', 'tailbasex', 'tailbasey','taillikelihood'])
+                                                   'righthindpawlikelihood', 'tailbasex', 'tailbasey',
+                                                   'taillikelihood'])
 
     # getting the animal name from DLC csv passed in
     animalName = []
@@ -185,6 +192,7 @@ def accelerationCalc(path):
     plt.title('Snout Acceleration vs. Time for: ' + ' '.join(path.split()[:2]) + " " + ''.join(animal[:2]))
     plt.show()
 
+
 # if you pass a directory then parse through directory
 def dirParse(directory):
     for file in os.listdir(directory):
@@ -194,8 +202,9 @@ def dirParse(directory):
         if not file.startswith('.') and os.path.isfile(os.path.join(directory, file)):
             # velocityCalc(file)
             accelerationCalc(file)
+            print(file)
 
 
-dirParse("/Users/imehndiokho/Desktop/csv_files")
-velocity_df.to_csv("/Users/imehndiokho/Desktop/velocity_neg.csv", index=False)
-acceleration_df.to_csv("/Users/imehndiokho/Desktop/acceleration_neg.csv", index=False)
+dirParse(r"C:\Users\ad-anestnorrislab\PycharmProjects\DLCTools\csv_con")
+# velocity_df.to_csv(r"C:\Users\ad-anestnorrislab\Desktop\csv_con_velocity.csv", index=False)
+# acceleration_df.to_csv(r"C:\Users\ad-anestnorrislab\Desktop\csv_con_acceleration.csv", index=False)

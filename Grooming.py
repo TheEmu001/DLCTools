@@ -11,7 +11,7 @@ from sklearn.metrics.pairwise import euclidean_distances
 # notation on print, default False
 np.set_printoptions(suppress=True)
 
-path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
+# path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 
 # TODO: recognition of multiple files in folder to each generate their own plot
