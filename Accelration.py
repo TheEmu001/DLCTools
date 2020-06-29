@@ -4,12 +4,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy.polynomial.polynomial as poly
 from sklearn.preprocessing import normalize
+from sympy import *
 
 # prevent numpy exponential
 # notation on print, default False
 np.set_printoptions(suppress=True)
 
-# path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
+path = "/Users/imehndiokho/PycharmProjects/DLCTools/csv_con/Vglut-cre C152 F0DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 # path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # path = "Vglut-cre C162 F1DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 
@@ -50,10 +51,13 @@ speed_df['pandas_SMA_3'] = speed_df.iloc[:,1].rolling(window=100).mean()
 x_val_numpy = speed_df['Time Elapsed'].to_numpy()
 y_val_numpy = speed_df['pandas_SMA_3'].to_numpy()
 
-y_der = np.gradient(y_val_numpy, x_val_numpy, edge_order=1)
-y_der_0 = np.nan_to_num(y_der)
-y_der_norm = normalize(y_der_0[:,np.newaxis], axis=0).ravel()
-y_der_cm = y_der * (1/24.421)
+# y_der = np.gradient(y_val_numpy, x_val_numpy, edge_order=1)
+# y_der_0 = np.nan_to_num(y_der)
+# # y_der_norm = normalize(y_der_0[:,np.newaxis], axis=0).ravel()
+# y_der_cm = y_der
+
+
+y_der_cm = speed_df['pandas_SMA_3'].diff() / speed_df['Time Elapsed'].diff()
 
 speed_df['first der cm'] = y_der_cm
 speed_df['first der cm'] = speed_df.iloc[:,1].rolling(window=100).mean()
