@@ -2,6 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 # TODO: convert pixel coordinates to cm at the very beginning
 #   every video must have its unique pixel conversion value
@@ -15,8 +16,11 @@ import matplotlib.pyplot as plt
 
 # prevent numpy exponential
 # notation on print, default False
+from scipy.signal import find_peaks
+
 np.set_printoptions(suppress=True)
 
+path = "csv_exp/Vglut-cre C137 F4+_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 # path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 
@@ -87,4 +91,30 @@ plt.ylabel('velocity (Pixels/second)')
 animal = []
 animal[:] = ' '.join(path.split()[2:3])
 plt.title('Snout Velocity vs. Time for: ' + ' '.join(path.split()[:2]) + " "+ ''.join(animal[:3]))
+
+time_things = speed_df['Time Elapsed']
+y_things = speed_df['Speed']
+
+indices = find_peaks(y_things)[0]
+
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(
+    y=y_things,
+    mode='lines+markers',
+    name='Original Plot'
+))
+
+fig.add_trace(go.Scatter(
+    x=indices,
+    y=[y_things[j] for j in indices],
+    mode='markers',
+    marker=dict(
+        size=8,
+        color='red',
+        symbol='cross'
+    ),
+    name='Detected Peaks'
+))
+fig.show()
 plt.show()

@@ -8,6 +8,7 @@ from scipy.signal import find_peaks
 
 np.set_printoptions(suppress=True)
 
+path = "csv_exp/Vglut-cre C137 F2+_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
 # path = "Vglut-cre C137 F4+_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # path = "Vglut-cre C137 F3-_2DLC_resnet50_VGlutEnclosedBehaviorApr25shuffle1_151500.csv"
 # path = "Vglut-cre C162 F1DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv"
@@ -66,7 +67,7 @@ y_der_norm = normalize(y_der_0[:,np.newaxis], axis=0).ravel()
 yder_df = pd.DataFrame(data={'Time': speed_df['Time Elapsed'][1:-1], 'Acceleration': y_der, 'frame': data_df['frameNo'][1:-1]})
 
 # peaks, _ = find_peaks(-data_df['snoutY'], distance=100)
-peaks, _ = find_peaks(yder_df['Acceleration'], distance=2)
+peaks, _ = find_peaks(yder_df['Acceleration'], distance=10)
 
 
 yder_df_peaks = pd.DataFrame(data=yder_df.loc[yder_df.frame.isin(peaks)]['Acceleration'])
