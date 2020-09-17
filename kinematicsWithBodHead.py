@@ -61,11 +61,12 @@ def velocityCalcHead(path):
 
     # getting animal name from pixel conversion CSV file
     conversion_df['animalFromVid'] = conversion_df.vidName.str[:17]
-    # print(conversion_df['animalFromVid'])
+
 
     # variables that find conversion factors unique to each video
     # each video will have unique height and width conversion factors
     height_conv_factor = conversion_df.loc[conversion_df['animalFromVid'].str.lower() == short_name.lower()].height_conv.item()
+
     width_conv_factor = conversion_df.loc[conversion_df['animalFromVid'].str.lower() == short_name.lower()].width_conv.item()
 
     # print(conversion_df[conversion_df['animalFromVid'] == short_name].height_conv)
@@ -93,7 +94,7 @@ def velocityCalcHead(path):
 
     # generating speed dataframe
     speed_df = pd.DataFrame(data={'TimeElapsed': data_df['TimeElapsed'][1:-1], 'Speed': speeds,
-                                  'Snout Likelihood': data_df['backLike'][1:-1]})
+                                  'Back Likelihood': data_df['backLike'][1:-1]})
 
     # speed_normalized = (speed_df - speed_df.mean()) / speed_df.std()
 
@@ -116,7 +117,7 @@ def velocityCalcHead(path):
     plt.show()
 
 
-def accelerationCalc(path):
+def accelerationCalcHead(path):
     # defining global variables to appease the demands of Python
     global velocity_df
     global acceleration_df
@@ -125,7 +126,8 @@ def accelerationCalc(path):
 
     # reading the DLC generated CSV file and generating a Pandas Dataframe with necessary info
     # this velocity function only focuses on snout velocity but can be adjusted to reflect other body parts of interest
-    data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'snoutX', 'snoutY', 'snoutLike',
+    data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'backX', 'backY', 'backLike', 'headX', 'headY', 'headLike',
+                                                   'snoutX', 'snoutY', 'snoutLike',
                                                    'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx',
                                                    'righteary',
                                                    'rightearlikelihood', 'leftforepawx', 'leftforepawy',
@@ -152,9 +154,10 @@ def accelerationCalc(path):
     data_df['TimeElapsed'] = data_df["frameNo"] / 30
 
     # divide by conversion factors to convert coordinates to cm
-    data_df['X_cm'] = data_df['snoutX'].divide(width_conv_factor)
-    data_df['Y_cm'] = data_df['snoutY'].divide(height_conv_factor)
-    xy = data_df[['X_cm', 'Y_cm']]
+    data_df['back_X_cm'] = data_df['backX'].divide(width_conv_factor)
+    data_df['back_Y_cm'] = data_df['backY'].divide(height_conv_factor)
+
+    xy = data_df[['back_X_cm', 'back_Y_cm']]
 
     # rolling x and y coordinates to facilitate calculating the difference between coordinates
     b = np.roll(xy, -1, axis=0)[1:-1]
@@ -171,7 +174,7 @@ def accelerationCalc(path):
 
     # generating speed dataframe
     speed_df = pd.DataFrame(data={'TimeElapsed': data_df['TimeElapsed'][1:-1], 'Speed': speeds,
-                                  'Snout Likelihood': data_df['snoutLike'][1:-1]})
+                                  'Back Likelihood': data_df['backLike'][1:-1]})
 
     # speed_normalized = (speed_df - speed_df.mean()) / speed_df.std()
 
@@ -209,7 +212,7 @@ def accelerationCalc(path):
     plt.ylabel('Acceleration(Pixels/second $^2$)')
     animal = []
     animal[:] = ' '.join(path.split()[2:3])
-    plt.title('Snout Acceleration vs. Time for: ' + short_name)
+    plt.title('Back Acceleration vs. Time for: ' + short_name)
     plt.show()
 
 
@@ -220,16 +223,16 @@ def dirParse(directory):
         # could also use file.endswith if you only wanted to look for .csv files instead of ignoring hidden files
         # useful if you have other types of files in directory
         if not file.startswith('.') and os.path.isfile(os.path.join(directory, file)):
-            # velocityCalc(os.path.join(directory, file))
-            accelerationCalc(os.path.join(directory, file))
+            # velocityCalcHead(os.path.join(directory, file))
+            accelerationCalcHead(os.path.join(directory, file))
             # print(file)
 #
 #
-# dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con")
-# velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/velovity_exp.csv", index=False)
-# acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con/acc_con.csv", index=False)
+# dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered")
+# velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered/vel_exp_fil.csv", index=False)
+# acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered/acc_con_fil.csv", index=False)
 
 # velocityCalcHead(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv")
-velocityCalcHead(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
-# accelerationCalc(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_con/VGlut-cre C152 F2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv")
-
+# velocityCalcHead(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
+# accelerationCalc(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
+velocityCalcHead("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered/VGlut-cre C146 M2_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
