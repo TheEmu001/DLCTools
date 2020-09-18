@@ -228,9 +228,9 @@ def dirParse(directory):
             # print(file)
 #
 #
-# dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered")
-# velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered/vel_exp_fil.csv", index=False)
-# acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered/acc_con_fil.csv", index=False)
+dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil")
+velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil/vel_exp_fil.csv", index=False)
+acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil/acc_exp_fil.csv", index=False)
 
 # velocityCalcHead(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv")
 # velocityCalcHead(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
