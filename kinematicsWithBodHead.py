@@ -19,7 +19,7 @@ acceleration_df = pd.DataFrame(columns=['TimeElapsed'])
 # conversion path points to the location of the pixel conersion csv and will generate a Pandas Dataframe as a result
 # every video will have a certain conversion value to convert x and y values from pixel to cm
 # this accounts for video framing, an idea would be to add a tracking point in DLC and parse files accordingly
-conv_path = "/Users/imehndiokho/PycharmProjects/DLCTools/pixel_conversion.csv"
+conv_path = "/Users/imehndiokho/PycharmProjects/DLCTools/saline_pixel_conversion.csv"
 # conv_path = open(r"C:\Users\ad-anestnorrislab\Desktop\pixel_conv.csv", "r")
 # with open (r"C:\Users\ad-anestnorrislab\Desktop\pixel_conv.csv", "rb+") as f:
 #     conversion_df = pd.read_csv(f, skiprows=4, names=['vidName', 'bucket_height', 'bucket_width', 'width_conv',
@@ -39,23 +39,25 @@ def velocityCalcHead(path):
 
     # reading the DLC generated CSV file and generating a Pandas Dataframe with necessary info
     # this velocity function only focuses on snout velocity but can be adjusted to reflect other body parts of interest
-    data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'backX', 'backY', 'backLike', 'headX', 'headY', 'headLike',
-                                                   'snoutX', 'snoutY', 'snoutLike',
-                                                   'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx',
-                                                   'righteary',
+    data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'bin_left_X', 'bin_left_Y', 'bin_left_Like', 'bin_right_X',
+                                                   'bin_right_Y', 'bin_right_Like', 'headX', 'headY', 'headLike',
+                                                   'snoutX', 'snoutY', 'snoutLike', 'back_X', 'back_Y', 'back_Like',
+                                                   'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearX',
+                                                   'rightearY', 'tailbasex', 'tailbasey', 'taillikelihood',
                                                    'rightearlikelihood', 'leftforepawx', 'leftforepawy',
                                                    'leftforewlikelihood', 'rightforepawx', 'rightforepawy',
                                                    'rightforepawlikelihood', 'lefthindpawx', 'lefthindpawy',
                                                    'lefthindpawlikelihood', 'righthindpawx', 'righthindpawy',
-                                                   'righthindpawlikelihood', 'tailbasex', 'tailbasey',
-                                                   'taillikelihood'])
+                                                   'righthindpawlikelihood'])
 
     # getting the animal name from DLC csv passed in
     animalName = []
+
     animalName[:] = ' '.join(path.split()[2:3])
+    print(animalName)
     fullName = ' '.join(path.split()[:2]) + " " + ''.join(animalName[:2])
-    short_name = fullName[52:]
-    # print(short_name)
+    short_name = fullName[63:]
+    print(short_name)
 
 
 
@@ -94,7 +96,7 @@ def velocityCalcHead(path):
 
     # generating speed dataframe
     speed_df = pd.DataFrame(data={'TimeElapsed': data_df['TimeElapsed'][1:-1], 'Speed': speeds,
-                                  'Back Likelihood': data_df['backLike'][1:-1]})
+                                  'Back Likelihood': data_df['back_Like'][1:-1]})
 
     # speed_normalized = (speed_df - speed_df.mean()) / speed_df.std()
 
@@ -126,36 +128,44 @@ def accelerationCalcHead(path):
 
     # reading the DLC generated CSV file and generating a Pandas Dataframe with necessary info
     # this velocity function only focuses on snout velocity but can be adjusted to reflect other body parts of interest
-    data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'backX', 'backY', 'backLike', 'headX', 'headY', 'headLike',
-                                                   'snoutX', 'snoutY', 'snoutLike',
-                                                   'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearx',
-                                                   'righteary',
+    # **NOTE**: the names indicating the body part MUST be changed depending on what body parts are in the csv file/video
+    data_df = pd.read_csv(path, skiprows=3, names=['frameNo', 'bin_left_X', 'bin_left_Y', 'bin_left_Like', 'bin_right_X',
+                                                   'bin_right_Y', 'bin_right_Like', 'headX', 'headY', 'headLike',
+                                                   'snoutX', 'snoutY', 'snoutLike', 'back_X', 'back_Y', 'back_Like',
+                                                   'LeftEarX', 'LeftEarY', 'LeftEarlikelihood', 'rightearX',
+                                                   'rightearY', 'tailbasex', 'tailbasey', 'taillikelihood',
                                                    'rightearlikelihood', 'leftforepawx', 'leftforepawy',
                                                    'leftforewlikelihood', 'rightforepawx', 'rightforepawy',
                                                    'rightforepawlikelihood', 'lefthindpawx', 'lefthindpawy',
                                                    'lefthindpawlikelihood', 'righthindpawx', 'righthindpawy',
-                                                   'righthindpawlikelihood', 'tailbasex', 'tailbasey',
-                                                   'taillikelihood'])
+                                                   'righthindpawlikelihood'])
 
     # getting the animal name from DLC csv passed in
+    # **NOTE**: had to mess with file naming in order to have the program correctly recognize the csv file and match to
+    # video name
     animalName = []
     animalName[:] = ' '.join(path.split()[2:3])
-    fullName = ' '.join(path.split()[:2]) + " " + ''.join(animalName[:2])
-    short_name = fullName[52:]
+    # fullName = ' '.join(path.split()[:2]) + " " + ''.join(animalName[:2])
+    fullName2 = ' '.join(path.split()[:2])
+    short_name = fullName2[63:]
+    short_name_final = short_name[:50]
+    print(short_name_final)
 
     # getting animal name from pixel conversion CSV file
-    conversion_df['animalFromVid'] = conversion_df.vidName.str[:17]
-
+    conversion_df['animalFromVid'] = short_name_final
+    print(conversion_df)
     # variables that find conversion factors unique to each video
     # each video will have unique height and width conversion factors
-    height_conv_factor = conversion_df.loc[conversion_df['animalFromVid'].str.lower() == short_name.lower()].height_conv.item()
-    width_conv_factor = conversion_df.loc[conversion_df['animalFromVid'].str.lower() == short_name.lower()].width_conv.item()
+    # **NOTE**: make sure to set conversion_df['animalFromVid'].str.lower() to whatever will be stored as the final
+    # file shortened name
+    height_conv_factor = conversion_df.loc[conversion_df['animalFromVid'].str.lower() == short_name_final.lower()].height_conv.item()
+    width_conv_factor = conversion_df.loc[conversion_df['animalFromVid'].str.lower() == short_name_final.lower()].width_conv.item()
 
     data_df['TimeElapsed'] = data_df["frameNo"] / 30
 
     # divide by conversion factors to convert coordinates to cm
-    data_df['back_X_cm'] = data_df['backX'].divide(width_conv_factor)
-    data_df['back_Y_cm'] = data_df['backY'].divide(height_conv_factor)
+    data_df['back_X_cm'] = data_df['headX'].divide(width_conv_factor)
+    data_df['back_Y_cm'] = data_df['headY'].divide(height_conv_factor)
 
     xy = data_df[['back_X_cm', 'back_Y_cm']]
 
@@ -174,16 +184,16 @@ def accelerationCalcHead(path):
 
     # generating speed dataframe
     speed_df = pd.DataFrame(data={'TimeElapsed': data_df['TimeElapsed'][1:-1], 'Speed': speeds,
-                                  'Back Likelihood': data_df['backLike'][1:-1]})
+                                  'Back Likelihood': data_df['back_Like'][1:-1]})
 
     # speed_normalized = (speed_df - speed_df.mean()) / speed_df.std()
 
     # calculates moving average over a span of approx. 3 seconds, can be changed
-    speed_df['pandas_SMA_3'] = speed_df.iloc[:, 1].rolling(window=100).mean()
+    speed_df['pandas_SMA_3'] = speed_df.iloc[:, 1].rolling(window=1).mean()
 
     # adding calculated velocity to global velocity DataFrame
     velocity_df['TimeElapsed'] = speed_df['TimeElapsed']
-    velocity_df[fullName] = speed_df['pandas_SMA_3']
+    velocity_df[short_name_final] = speed_df['pandas_SMA_3']
 
     x_val_numpy = speed_df['TimeElapsed'].to_numpy()
     y_val_numpy = speed_df['pandas_SMA_3'].to_numpy()
@@ -202,11 +212,11 @@ def accelerationCalcHead(path):
     speed_df['first der cm'] = y_der_cm
     # speed_df['first der cm'] = speed_df.iloc[:, 1].rolling(window=100).mean()
 
-    acceleration_df['TimeElapsed'] = speed_df['TimeElapsed'][401:]
+    acceleration_df['TimeElapsed'] = speed_df['TimeElapsed'][11:]
     # acceleration_df[short_name] = speed_df['first der cm']
-    acceleration_df[short_name] = y_der_cm[400:]
+    acceleration_df[short_name] = y_der_cm[10:]
 
-    plt.plot(speed_df['TimeElapsed'][401:], y_der_cm[400:], color='green', marker='o', markersize=0.1,
+    plt.plot(speed_df['TimeElapsed'][11:], y_der_cm[10:], color='green', marker='o', markersize=0.1,
              linewidth=0.5, label='pandas_SMA_3')
     plt.xlabel('Time (seconds)')
     plt.ylabel('Acceleration(Pixels/second $^2$)')
@@ -228,11 +238,11 @@ def dirParse(directory):
             # print(file)
 #
 #
-dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil")
-velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil/vel_exp_fil.csv", index=False)
-acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil/acc_exp_fil.csv", index=False)
+dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/drug_trials_saline")
+velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/drug_trials_saline/velocity_saline.csv", index=False)
+acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/drug_trials_saline/acc_saline.csv", index=False)
 
 # velocityCalcHead(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv")
 # velocityCalcHead(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
 # accelerationCalc(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
-velocityCalcHead("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered/VGlut-cre C146 M2_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")
+# velocityCalcHead("/Users/imehndiokho/PycharmProjects/DLCTools/csv_con_filtered/VGlut-cre C146 M2_2DLC_resnet50_EnclosedBehaviorMay27shuffle2_251000filtered.csv")

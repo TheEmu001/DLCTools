@@ -54,7 +54,7 @@ def velocityCalc(path):
     animalName[:] = ' '.join(path.split()[2:3])
     fullName = ' '.join(path.split()[:2]) + " " + ''.join(animalName[:2])
     short_name = fullName[52:]
-    # print(short_name)
+
 
 
 
@@ -223,12 +223,12 @@ def dirParse(directory):
             accelerationCalc(os.path.join(directory, file))
             # print(file)
 #
-#
-dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil")
-velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil/velovity_exp.csv", index=False)
-acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/exp_fil/acc_con.csv", index=False)
+# #
+# dirParse("/Users/imehndiokho/PycharmProjects/DLCTools/drug_trials_saline")
+# velocity_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/drug_trials_saline/velocity_saline.csv", index=False)
+# acceleration_df.to_csv("/Users/imehndiokho/PycharmProjects/DLCTools/drug_trials_saline/acc_saline.csv", index=False)
 
-# velocityCalc(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3_2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv")
+velocityCalc(r"/Users/imehndiokho/PycharmProjects/DLCTools/drug_trials_saline/Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top DownDLC_resnet50_BigBinTopSep17shuffle1_240000filtered.csv")
 # accelerationCalc(r"/Users/imehndiokho/PycharmProjects/DLCTools/csv_con/VGlut-cre C152 F2DLC_resnet50_EnclosedBehaviorMay27shuffle1_307000.csv")
 # velocity_df['why'] = velocity_df['/Users/imehndiokho/PycharmProjects/DLCTools/csv_exp/VGlut-cre C147 F3']
 # print(velocity_df)
