@@ -183,19 +183,19 @@ if __name__ == '__main__':
 
     # 5mg/kg U50
 
-    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down', fps=30, no_seconds=10, color=None)
-    #
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top '
-    #                                                                                    'Down Dist Travelled'], label='M1', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top '
-    #                                                                                    'Down Dist Travelled'], label='M2', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top '
-    #                                                                                    'Down Dist Travelled'], label='M3', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top '
-    #                                                                                    'Down Dist Travelled'], label='M4', color='blue')
+    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down', fps=60, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down', fps=60, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down', fps=60, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down', fps=60, no_seconds=10, color=None)
+
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top '
+                                                                                       'Down Dist Travelled'], label='M1', color='blue')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top '
+                                                                                       'Down Dist Travelled'], label='M2', color='blue')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top '
+                                                                                       'Down Dist Travelled'], label='M3', color='blue')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top '
+                                                                                       'Down Dist Travelled'], label='M4', color='blue')
 
     # 10mg/kg U50
     # velocity(video='Paper_Redo_U50_Ai14_OPRK1_C1_M1_Top Down', fps=30, no_seconds=10, color=None)
