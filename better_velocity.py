@@ -168,18 +168,24 @@ if __name__ == '__main__':
     plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top '
                                                                                                          'Down Dist Travelled'], label='M4', color='black')
 
-    for items in all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time']:
-        if items in all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'].values:
-            items+1
-        else:
-            # delete row of irrelevant data
-            all_data.replace(items, 'NaN')
-            # all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled'].iloc[int(items)].replace(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Distance Travelled'].iloc[int(items)], np.nan)
-
     # create a dataframe with only Naltrexone values to make it easier to average
     # .loc[all of the rows, [only relevant Naltrexone columns]]
     only_saline = all_data.loc[:, ['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled','Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down Dist Travelled',
                                    'Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down Dist Travelled']]
+    print(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'])
+    rando = 0
+    for items in all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time']:
+        if items not in all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'].values:
+            # ind_val = all_data[all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] == items].index
+            # mask = all_data[all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] == items]
+            all_data[all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'].values == items].replace(to_replace=items, value=np.nan)
+            rando=rando+1
+            print("replaced "+str(rando)+" values")
+            # all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'].drop(index=all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'].loc(items))
+            # print(str(items)+" not in OG")
+            # all_data.replace(items, np.nan)
+
+    print(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'])
 
     # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
     all_data["Average Naltr Dist"] = only_saline.mean(axis=1)
