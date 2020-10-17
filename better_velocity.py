@@ -155,30 +155,30 @@ if __name__ == '__main__':
     # like pyplot will establish the x-axis based on the first plot, graph highest framerate first to make sure this
     # isn't prblematic in the future
     # AKA M1 graphed at 60fps looked like it was stopping prematurely bc graph was made first with a video of 30fps
-    # velocity(video='Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down', fps=60, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down', fps=30, no_seconds=10, color=None)
-    #
-    # plt.plot(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled'], label='M1', color='pink')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down '
-    #                                                                                                      'Dist Travelled'], label='M2', color='purple')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top '
-    #                                                                                                      'Down Dist Travelled'], label='M3', color='red')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top '
-    #                                                                                                      'Down Dist Travelled'], label='M4', color='black')
-    #
-    #
-    # #Saline
-    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down', fps=30, no_seconds=10, color=None)
-    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down', fps=30, no_seconds=10, color=None)
-    #
-    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Dist Travelled'], color='orange')
-    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Dist Travelled'], color='orange')
-    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Dist Travelled'], color='orange')
-    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Dist Travelled'], color='orange')
+    velocity(video='Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down', fps=60, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down', fps=30, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down', fps=30, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down', fps=30, no_seconds=10, color=None)
+
+    plt.plot(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled'], label='M1', color='pink')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down '
+                                                                                                         'Dist Travelled'], label='M2', color='purple')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top '
+                                                                                                         'Down Dist Travelled'], label='M3', color='red')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top '
+                                                                                                         'Down Dist Travelled'], label='M4', color='black')
+
+
+    #Saline
+    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down', fps=30, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down', fps=30, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down', fps=30, no_seconds=10, color=None)
+    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down', fps=30, no_seconds=10, color=None)
+
+    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Dist Travelled'], color='orange')
+    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Dist Travelled'], color='orange')
+    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Dist Travelled'], color='orange')
+    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Dist Travelled'], color='orange')
 
 
     # 5mg/kg U50
@@ -187,20 +187,25 @@ if __name__ == '__main__':
     velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down', fps=60, no_seconds=10, color=None)
     velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down', fps=60, no_seconds=10, color=None)
     velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down', fps=60, no_seconds=10, color=None)
-    #
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top '
-    #                                                                                    'Down Dist Travelled'], label='M1', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top '
-    #                                                                                    'Down Dist Travelled'], label='M2', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top '
-    #                                                                                    'Down Dist Travelled'], label='M3', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top '
-    #                                                                                    'Down Dist Travelled'], label='M4', color='blue')
+
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top '
+                                                                                       'Down Dist Travelled'], label='M1', color='blue')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top '
+                                                                                       'Down Dist Travelled'], label='M2', color='blue')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top '
+                                                                                       'Down Dist Travelled'], label='M3', color='blue')
+    plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top '
+                                                                                       'Down Dist Travelled'], label='M4', color='blue')
 
     # create a dataframe with only 5mgkg U50 values to make it easier to average
     # .loc[all of the rows, [only relevant u50 columns]]
     only_5mgU50 = all_data.loc[:, ['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled','Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Dist Travelled']]
-    all_data["Average 5mgkg U50"] = only_5mgU50.rolling(600).mean()
+    # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
+    all_data["Average 5mgkg U50"] = only_5mgU50.mean(axis=1)
+    # then calculate the rolling mean over a specified period of time (based on df index)
+    # since filmed in 60fps, this is calculated over 600 frames to represent one second
+    all_data["Rolling Average 5mgkg U50"] = all_data["Average 5mgkg U50"].rolling(600).mean()
+    plt.plot(all_data["Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time"], all_data["Rolling Average 5mgkg U50"], label='Rolling Avg U50')
 
 
     # 10mg/kg U50
