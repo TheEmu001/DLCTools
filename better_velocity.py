@@ -172,20 +172,11 @@ if __name__ == '__main__':
     # .loc[all of the rows, [only relevant Naltrexone columns]]
     only_saline = all_data.loc[:, ['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled','Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down Dist Travelled',
                                    'Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down Dist Travelled']]
-    print(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'])
-    rando = 0
-    for items in all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time']:
-        if items not in all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'].values:
-            # ind_val = all_data[all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] == items].index
-            # mask = all_data[all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] == items]
-            all_data[all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'].values == items].replace(to_replace=items, value=np.nan)
-            rando=rando+1
-            print("replaced "+str(rando)+" values")
-            # all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'].drop(index=all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'].loc(items))
-            # print(str(items)+" not in OG")
-            # all_data.replace(items, np.nan)
 
-    print(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'])
+    potato = np.isin(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'],
+                     all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'])
+    all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] = \
+        all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'][potato]
 
     # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
     all_data["Average Naltr Dist"] = only_saline.mean(axis=1)
@@ -193,7 +184,7 @@ if __name__ == '__main__':
     # since filmed in 30fps, this is calculated over 30 frames to represent one second
     # this part is a little weird since there is one video filmed at 60fps
     # Maybe figure out away to get this to roll from the specified time?
-    all_data["Rolling Average Naltr"] = all_data["Average Naltr Dist"].rolling('1s').mean()
+    all_data["Rolling Average Naltr"] = all_data["Average Naltr Dist"].rolling(300).mean()
     plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'], all_data["Average Naltr Dist"], label='Average Naltr Dist', color='#b86c31')
 
     #Saline
