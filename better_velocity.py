@@ -160,6 +160,8 @@ if __name__ == '__main__':
     velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down', fps=30, no_seconds=10, color=None)
     velocity(video='Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down', fps=30, no_seconds=10, color=None)
 
+
+
     plt.plot(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled'], label='M1', color='pink')
     plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down '
                                                                                                          'Dist Travelled'], label='M2', color='purple')
@@ -170,15 +172,19 @@ if __name__ == '__main__':
 
     # create a dataframe with only Naltrexone values to make it easier to average
     # .loc[all of the rows, [only relevant Naltrexone columns]]
-    only_saline = all_data.loc[:, ['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled','Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down Dist Travelled',
+    only_saline = all_data.loc[:, ['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M3_Top Down Dist Travelled',
                                    'Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M4_Top Down Dist Travelled']]
-
-    potato = np.isin(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'],
-                     all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'])
-    all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] = \
-        all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'][potato]
-
-    # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
+    only_saline['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled'] = all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled'].iloc[::2].dropna().reset_index(drop=True).dropna()
+    all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] = all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'].iloc[::2].dropna().reset_index(drop=True).dropna()
+    # df = dfA.reset_index().dropna()
+    print(only_saline['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled'])
+    # # work around to filter time periods to only be the relevant ones
+    # potato = np.isin(all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'],
+    #                  all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'])
+    # all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'] = \
+    #     all_data['Paper_Redo_PreTreat5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'][potato]
+    #
+    # calculate mean for relevant Naltrexone columns, this calculates an average velocity for each point in time
     all_data["Average Naltr Dist"] = only_saline.mean(axis=1)
     # then calculate the rolling mean over a specified period of time (based on df index)
     # since filmed in 30fps, this is calculated over 30 frames to represent one second
@@ -188,52 +194,52 @@ if __name__ == '__main__':
     plt.plot(all_data['Paper_Redo_5mg_kgU50PreTreatNaltrexone_Ai14_OPRK1_C1_M2_Top Down Time'], all_data["Average Naltr Dist"], label='Average Naltr Dist', color='#b86c31')
 
     #Saline
-    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down', fps=30, no_seconds=10, color=None)
-    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down', fps=30, no_seconds=10, color=None)
-    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down', fps=30, no_seconds=10, color=None)
-    velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down', fps=30, no_seconds=10, color=None)
-
-    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Dist Travelled'], color='orange')
-    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Dist Travelled'], color='orange')
-    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Dist Travelled'], color='orange')
-    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Dist Travelled'], color='orange')
-
-    # create a dataframe with only Saline values to make it easier to average
-    # .loc[all of the rows, [only relevant Saline columns]]
-    only_saline = all_data.loc[:, ['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Dist Travelled','Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Dist Travelled', 'Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Dist Travelled',
-                                   'Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Dist Travelled']]
-    # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
-    all_data["Average Saline Dist"] = only_saline.mean(axis=1)
-    # then calculate the rolling mean over a specified period of time (based on df index)
-    # since filmed in 30fps, this is calculated over 30 frames to represent one second
-    all_data["Rolling Average Saline"] = all_data["Average Saline Dist"].rolling(600).mean()
-    plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Time'], all_data["Rolling Average Saline"], label='Rolling Average Saline', color='#b2d88d')
+    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down', fps=30, no_seconds=10, color=None)
+    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down', fps=30, no_seconds=10, color=None)
+    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down', fps=30, no_seconds=10, color=None)
+    # velocity(video='Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down', fps=30, no_seconds=10, color=None)
+    #
+    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Dist Travelled'], color='orange')
+    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Dist Travelled'], color='orange')
+    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Dist Travelled'], color='orange')
+    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Time'], all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Dist Travelled'], color='orange')
+    #
+    # # create a dataframe with only Saline values to make it easier to average
+    # # .loc[all of the rows, [only relevant Saline columns]]
+    # only_saline = all_data.loc[:, ['Paper_Redo_Saline_Ai14_OPRK1_C1_M1_trial2_Top Down Dist Travelled','Paper_Redo_Saline_Ai14_OPRK1_C1_M2_trial2_Top Down Dist Travelled', 'Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Dist Travelled',
+    #                                'Paper_Redo_Saline_Ai14_OPRK1_C1_M4_trial2_Top Down Dist Travelled']]
+    # # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
+    # all_data["Average Saline Dist"] = only_saline.mean(axis=1)
+    # # then calculate the rolling mean over a specified period of time (based on df index)
+    # # since filmed in 30fps, this is calculated over 30 frames to represent one second
+    # all_data["Rolling Average Saline"] = all_data["Average Saline Dist"].rolling(600).mean()
+    # plt.plot(all_data['Paper_Redo_Saline_Ai14_OPRK1_C1_M3_trial2_Top Down Time'], all_data["Rolling Average Saline"], label='Rolling Average Saline', color='#b2d88d')
 
     # 5mg/kg U50
-
-    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down', fps=60, no_seconds=10, color=None)
-    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down', fps=60, no_seconds=10, color=None)
-    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down', fps=60, no_seconds=10, color=None)
-    velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down', fps=60, no_seconds=10, color=None)
-
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top '
-    #                                                                                    'Down Dist Travelled'], label='M1', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top '
-    #                                                                                    'Down Dist Travelled'], label='M2', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top '
-    #                                                                                    'Down Dist Travelled'], label='M3', color='blue')
-    # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top '
-    #                                                                                    'Down Dist Travelled'], label='M4', color='blue')
-
-    # create a dataframe with only 5mgkg U50 values to make it easier to average
-    # .loc[all of the rows, [only relevant u50 columns]]
-    only_5mgU50 = all_data.loc[:, ['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled','Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Dist Travelled']]
-    # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
-    all_data["Average 5mgkg U50"] = only_5mgU50.mean(axis=1)
-    # then calculate the rolling mean over a specified period of time (based on df index)
-    # since filmed in 60fps, this is calculated over 600 frames to represent one second
-    all_data["Rolling Average 5mgkg U50"] = all_data["Average 5mgkg U50"].rolling(600).mean()
-    plt.plot(all_data["Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time"], all_data["Rolling Average 5mgkg U50"], label='Rolling Avg U50')
+    #
+    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down', fps=60, no_seconds=10, color=None)
+    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down', fps=60, no_seconds=10, color=None)
+    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down', fps=60, no_seconds=10, color=None)
+    # velocity(video='Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down', fps=60, no_seconds=10, color=None)
+    #
+    # # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top '
+    # #                                                                                    'Down Dist Travelled'], label='M1', color='blue')
+    # # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top '
+    # #                                                                                    'Down Dist Travelled'], label='M2', color='blue')
+    # # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top '
+    # #                                                                                    'Down Dist Travelled'], label='M3', color='blue')
+    # # plt.plot(all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Time'], all_data['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top '
+    # #                                                                                    'Down Dist Travelled'], label='M4', color='blue')
+    #
+    # # create a dataframe with only 5mgkg U50 values to make it easier to average
+    # # .loc[all of the rows, [only relevant u50 columns]]
+    # only_5mgU50 = all_data.loc[:, ['Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Dist Travelled','Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M2_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M3_Top Down Dist Travelled', 'Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M4_Top Down Dist Travelled']]
+    # # calculate mean for relevant u50 columns, this calculates an average velocity for each point in time
+    # all_data["Average 5mgkg U50"] = only_5mgU50.mean(axis=1)
+    # # then calculate the rolling mean over a specified period of time (based on df index)
+    # # since filmed in 60fps, this is calculated over 600 frames to represent one second
+    # all_data["Rolling Average 5mgkg U50"] = all_data["Average 5mgkg U50"].rolling(600).mean()
+    # plt.plot(all_data["Paper_Redo_5mg_kgU50_Ai14_OPRK1_C1_M1_Top Down Time"], all_data["Rolling Average 5mgkg U50"], label='Rolling Avg U50')
 
 
     # 10mg/kg U50
